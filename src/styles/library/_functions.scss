@@ -1,0 +1,35 @@
+// Functions
+
+// Roll your own ems
+// to use
+// p {font-size: em(12px);}
+// h1 {font-size: em(24px, 10px);}
+
+// compiles to
+// p {font-size: 0.75em;}
+// h1 {font-size: 2.4em;}
+
+// $font-size: 16px; - declared in variables
+@function em($target, $context: $font_size) {
+  @return ($target / $context) * 1em;
+}
+
+// // Color Function
+// $bold-color: saturate($main-color, 25%);
+// $accent-color: adjust-hue($bold-color, 60deg); // same as complement($color)
+// $main-gray-color: grayscale($main-color);
+// $highlight-color: lighten($main-color, 20%);
+// $shadow-color: darken($main-color, 20%);
+// $invert-color: invert($main-color);
+// $complement-color: complement($main-color);
+// $combined-color: mix(#000,#fff);
+
+
+// Opacity Functions
+$rgba-example: rgba(#cc0000, 0.4);
+$alpha-value: alpha(rgba(51, 255, 51, 0.75)); // 0.75
+$opacity-value: opacity(rgba(51, 255, 51, 0.75)); // 0.75
+$increase-opacity: opacify(rgba(51, 255, 51, 0.75), 0.1); // rgba(51, 255, 51, 0.85)
+$fadein-opacity: fade-in(rgba(51, 255, 51, 0.75), 0.1); // rgba(51, 255, 51, 0.85)
+$increase-color: transparentize(rgba(51, 255, 51, 0.75), 0.1); // rgba(51, 255, 51, 0.65)
+$fade-out-color: fade-out(rgba(51, 255, 51, 0.75), 0.1); // rgba(51, 255, 51, 0.65)

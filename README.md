@@ -1,2 +1,2 @@
-# project-template-2
-Base template for starting a new project
+# project-template-v2
+A new and improved project template

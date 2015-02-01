@@ -1,0 +1,180 @@
+// Mixins
+
+
+// Debug traces
+
+@mixin trace-boxes ($invert: "") {
+  @if ($invert == invert) {
+    * { box-shadow: 0 0 1px white inset; }
+  } @else {
+    * { box-shadow: 0 0 1px black inset; }
+  }
+}
+
+
+// Positioning Mixins
+
+@mixin cover ($offset: 0) {
+  position: absolute;
+  top: $offset;
+  left: $offset;
+  right: $offset;
+  bottom: $offset;
+}
+
+@mixin top-left ($offset: 0) {
+  position: absolute;
+  top: $offset;
+  left: $offset;
+}
+
+@mixin top-right ($offset: 0) {
+  position: absolute;
+  top: $offset;
+  right: $offset;
+}
+
+@mixin bottom-left ($offset: 0) {
+  position: absolute;
+  left: $offset;
+  bottom: $offset;
+}
+
+
+// https://dvcs.w3.org/hg/FXTF/raw-file/tip/filters/index.html
+//
+// grayscale      ex: filter: grayscale(100%);
+// sepia          ex: filter: sepia(100%);
+// saturate       ex: filter: saturate(0%);
+// hue-rotate     ex: filter: hue-rotate(45deg);
+// invert         ex: filter: invert(100%);
+// brightness     ex: filter: brightness(15%);
+// contrast       ex: filter: contrast(200%);
+// blur           ex: filter: blur(2px);
+
+@mixin filter($filter-type,$filter-amount) {
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter:    $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter:     $filter-type+unquote('(#{$filter-amount})');
+  -o-filter:      $filter-type+unquote('(#{$filter-amount})');
+  filter:         $filter-type+unquote('(#{$filter-amount})');
+}
+
+
+// Custom style abstractions
+
+@mixin action-bar ($height: $pane-action-bar-height) {
+  @include bottom-left;
+  @include box-sizing(border-box);
+  right: 0;
+  border-top: 1px solid $light;
+  height: $height;
+  background: $bg-panes-action-bar;
+  z-index: 1;
+}
+
+
+// Media block
+
+@mixin media {
+  @include clearfix;
+
+  .img {
+    float: left;
+    margin-right: $gutter;
+  }
+
+  .bd {
+    overflow: hidden;
+  }
+}
+
+
+// Gradient formatting for IE9
+
+@mixin ie-gradient ($start, $end) {
+  filter: unquote("progid:DXImageTransform.Microsoft.gradient(startColorStr='#{ie-hex-str($start)}', EndColorStr='#{ie-hex-str($end)}')");
+}
+
+// usage:
+// $gradient:#000, #fff
+// @include gradient($gradient);
+@mixin gradient($gradient) {
+  background: mix( nth($gradient,1), nth($gradient,2) );
+  background: -moz-linear-gradient(top,  nth($gradient,1) 0%, nth($gradient,2) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,nth($gradient,1)), color-stop(100%,nth($gradient,2)));
+  background: -webkit-linear-gradient(top,  nth($gradient,1) 0%,nth($gradient,2) 100%);
+  background: -o-linear-gradient(top,  nth($gradient,1) 0%,nth($gradient,2) 100%);
+  background: -ms-linear-gradient(top,  nth($gradient,1) 0%,nth($gradient,2) 100%);
+  background: linear-gradient(to bottom,  nth($gradient,1) 0%,nth($gradient,2) 100%);
+}
+
+// mixin to generate regular and retina sprites
+// create 2 folders (i.e sprites & sprites-retina note: images must have // same names)
+// see: https://github.com/AdamBrodzinski/Retina-Sprites-for-Compass
+@mixin retina-sprite($name, $hover: false, $active: false) {
+  @include _retina-sprite($name, $sprites, $sprites2x, $hover, $active);
+}
+
+// The general purpose retina sprite mixin.
+  //
+  //    @include retina-sprite(name, $spritemap1, $spritemap2)
+  //    @include retina-sprite(name, $spritemap1, $spritemap2[, $dimensions: true, $pad: 0])
+  //
+  //    If `dimensions` is true, then width/height will also be set.
+  //
+  //    if `pad` is non-zero, then that's how much padding the element will have (requires
+  //    $spacing on the sprite maps). Great for iPhone interfaces to make hit areas bigger.
+  //
+@mixin _retina-sprite($name, $sprites, $sprites2x, $hover, $active, $dimensions: true, $pad: 0) {
+  @if $dimensions == true {
+    @include sprite-dimensions($sprites, $name);
+  }
+  background-image: sprite-url($sprites);
+  background-position: sprite-position($sprites, $name, -$pad, -$pad);
+  background-repeat: no-repeat;
+
+  @if $hover == true {
+    $name_hover: $name + _hover;
+    &:hover {
+    background-position: sprite-position($sprites, $name_hover, -$pad, -$pad);
+    }
+  }
+  @if $active == true {
+    $name_active: $name + _active;
+    &:active {
+    background-position: sprite-position($sprites, $name_active, -$pad, -$pad);
+    }
+  }
+
+  @if $pad > 0 {
+    padding: $pad;
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+   & {
+    $pos: sprite-position($sprites2x, $name, -$pad * 2, -$pad * 2);
+    background-image: sprite-url($sprites2x);
+    background-position: nth($pos, 1) / 2 nth($pos, 2) / 2;
+    @include background-size(ceil(image-width(sprite-path($sprites2x)) / 2) auto);
+    //  sprite-path() returns the path of the generated sprite sheet, which
+    //  image-width() calculates the width of. the ceil() is in place in case
+    //  you have sprites that have an odd-number of pixels in width
+
+    @if $hover == true {
+      $name_hover: $name + _hover;    // create myButton_hover and assign it
+      &:hover{
+        $pos: sprite-position($sprites2x, $name_hover, -$pad * 2, -$pad * 2);
+        background-position: nth($pos, 1) / 2 nth($pos, 2) / 2;
+      }
+    }
+    @if $active == true {
+      $name_active: $name + _active;    // create myButton_active and assign it
+      &:active{
+        $pos: sprite-position($sprites2x, $name_active, -$pad * 2, -$pad * 2);
+        background-position: nth($pos, 1) / 2 nth($pos, 2) / 2;
+        }
+      }
+    }
+  }
+}
