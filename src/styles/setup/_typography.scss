@@ -1,1 +1,25 @@
 // Typography
+$gutter: 20px;
+
+body {
+	color: $black;
+	font: normal #{$font-size}/#{$line-height} $font-stack;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+ul, ol {
+	margin-left: $gutter;
+
+	li {
+		margin-bottom: $gutter;
+	}
+}
+
+ul {
+	list-style: disc outside none;
+}
+
+ol {
+	list-style: decimal outside none;
+}
