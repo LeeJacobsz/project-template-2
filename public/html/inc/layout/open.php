@@ -6,17 +6,21 @@
 	<?php
 		include('inc/utils/utils.php');
 		$title = isset($title) ? $title : 'Pitch Studio Project Template';
-		$pageName = isset($pageName) ? $pageName : 'default';
-		$pageTheme = isset($pageTheme) ? $pageTheme : 'default';
+		$pageName = isset($pageName) ? $pageName : '';
+		$pageTheme = isset($pageTheme) ? $pageTheme : '';
 	?>
-	<title><?=$title?></title>
+	<title><? echo $title?></title>
 
 	<!-- meta -->
 	<meta charset="utf-8" />
 	<meta name="description" content="" />
-	<meta name="robots" content="index, follow" />
+	<meta name="robots" content="nofollow" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<?php if ($pageName == "home"): ?>
+	<link href="http://thisurl.com" rel="canonical" />
+	<?php endif; ?>
 
 	<!-- modernizr -->
 	<script src="/assets/js/modernizr.js"></script>
@@ -27,7 +31,7 @@
 	<!-- javascript -->
 	<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
-<body data-view="<?=$pageName?>" data-page-theme="<?=$pageTheme?>">
+<body data-view="<? echo $pageName?>" data-page-theme="<? echo $pageTheme?>">
 
 	<?php include_all('inc/snippets/*'); ?>
 

@@ -10,5 +10,6 @@
 		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 		s.parentNode.insertBefore(g,s)}(document,'script'));
 	</script>
+	<!-- crazy egg code -->
 </body>
 </html>
