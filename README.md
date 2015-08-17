@@ -14,9 +14,9 @@ The src folder will be above the web root and contains all of our scss, custom s
 Our initial html files up will live in public/html. We start with a very basic index.html file. Nothing too exciting here. The header has an html5 shim to kick shitty browsers into gear, the footer has all the other javascript for speed reasons. The header file also has conditional statements to add ie specific classes to the html tag. We link to the latest version of jQuery but you'll want to set a specific version in production, unless you like living on the edge.
 
 # CSS
-We still use scss. Only now we have moved away from using codekit to compile to css. As mentioned above, we are now using gulp for this (and more). Bourbon is also being imported instead of Compass.
+We still use scss. Only now we have moved away from using codekit to compile to css. As mentioned above, we are now using gulp. Bourbon is also being imported instead of Compass.
 
 # JS
-We have a fairly advanced set up here compared to the first project template. init.js is our old custom.js. More detail to follow.
+This makes use of a widget system that was set up with the smarts of https://github.com/lakmeer who is my Javascript mentor. Now I can approach Javascript in much the same way as I approach Styles and Mark up.
 
 

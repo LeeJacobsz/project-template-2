@@ -1,0 +1,18 @@
+# force www
+# RewriteCond %{HTTP_HOST} ^example.co.nz [NC]
+# RewriteRule ^(.*)$ http://www.example.co.nz/$1 [L,R=301,NC]
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# Craft URL Rewriting here
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+	RewriteRule ^ index.php%{REQUEST_URI} [L,NC]
+
+	# force no trailing slash
+	RewriteCond %{THE_REQUEST} \s(.+?)/+[?\s]
+	RewriteRule ^(.+?)/$ /$1 [R=301,L]
+</IfModule>

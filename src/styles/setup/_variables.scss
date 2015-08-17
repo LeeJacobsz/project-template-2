@@ -1,19 +1,4 @@
 // Variables
 
-$max-width: 2000px;
 $gutter: 20px;
-
-/* ----------------------------------------------------------
-sprites
----------------------------------------------------------- */
-// normal & retina option example
-//$sprites: sprite-map("../img/sprites/*.png");            // import 1x sprites
-//$sprites2x: sprite-map("../img/sprites-retina/*.png");   // import 2x sprites
-// usage (not in this file...duh!):
-// .example {
-// 	@include retina-sprite(logo-mobile); //this will use normal image on normal displays and use the retina image on retina displays
-
-// 	@include respond-to(desktop) {
-// 		@include retina-sprite(logo-desktop);
-// 	}
-// }
+$max-width: 2000px;

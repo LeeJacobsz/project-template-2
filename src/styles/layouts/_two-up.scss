@@ -1,0 +1,91 @@
+
+[data-layout="two-up"] {
+	display: flex;
+	flex-wrap: wrap;
+
+  $cell-gutter-tablet: 2%;
+  $cell-gutter-desktop: 3%;
+
+	> .cell {
+    flex-grow: 1;
+    width: 100%;
+    padding: 30px 0;
+
+    &.no-top-padding {padding-top: 0;}
+    &.no-bottom-padding {padding-bottom: 0;}
+
+    @include respond-to(tablet) {
+      width: 50%;
+      padding: 30px $cell-gutter-tablet / 2;
+      padding-bottom: 30px;
+
+      //&:first-child { padding-left: 0; padding-right: $cell-gutter-tablet * 2/3; }
+      //&:last-child  { padding-right: 0; padding-left: $cell-gutter-tablet * 2/3; }
+    }
+
+    @include respond-to(desktop) {
+      padding: 50px $cell-gutter-desktop / 2;
+
+      //&:first-child { padding-left: 0; padding-right: $cell-gutter-desktop * 2/3; }
+      //&:last-child  { padding-right: 0; padding-left: $cell-gutter-desktop * 2/3; }
+    }
+	}
+
+
+  @include respond-to(tablet) {
+    margin-left: -$cell-gutter-tablet / 2;
+    margin-right: -$cell-gutter-tablet / 2;
+  }
+
+  @include respond-to(desktop) {
+    margin-left: -$cell-gutter-desktop / 2;
+    margin-right: -$cell-gutter-desktop / 2;
+  }
+
+
+  // No gutter on tight-layout items
+
+  &.no-gutter {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    > .cell {
+      padding: 0 !important;
+    }
+ }
+
+ // Do special tablet only layout for homepage feature
+
+ &.alt-display {
+
+  .display-target {
+
+    @include respond-to(tablet) {
+      .cell {
+        width: 100%;
+        &:first-child {
+          display: none;
+        }
+      }
+    }
+
+    @include respond-to(desktop) {
+      .cell {
+        width: 50%;
+        &:first-child {
+          display: inline;
+        }
+      }
+    }
+  }
+ }
+
+
+  // Sometimes, fudging the order is necessary
+
+  &.reverse-order {
+    > .cell:first-child {
+      order: 2;
+    }
+  }
+}

@@ -10,6 +10,7 @@
 
 // Misc
 @import 'misc/ir';
+@import 'misc/ghost-center';
 
 // Setup
 @import 'setup/helpers';
@@ -26,5 +27,10 @@
 @import 'sections/general';
 
 // Layouts
+@import 'layouts/full';
+@import 'layouts/two-up';
+@import 'layouts/three-up';
+@import 'layouts/two-thirds';
+@import 'layouts/four-up';
 
 // Views

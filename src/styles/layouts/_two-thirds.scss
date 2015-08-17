@@ -1,0 +1,25 @@
+[data-layout="two-thirds"] {
+
+  @extend [data-layout="two-up"];
+
+  // flex-wrap: nowrap; // this breaks the normal two-thirds
+
+  @include respond-to(tablet) {
+    // flex-wrap: nowrap; // this breaks the normal two-thirds
+
+    > .cell:first-child { width: 66.3%; }
+    > .cell             { width: 33.6%; }
+
+    &.right {
+      > .cell:first-child {
+        order: 2;
+      }
+    }
+  }
+
+  @include respond-to(desktop) {
+    .cell {
+      width: 33%;
+    }
+	}
+}

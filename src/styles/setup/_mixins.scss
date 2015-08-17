@@ -40,6 +40,26 @@
   bottom: $offset;
 }
 
+// Ghost Center Mixin
+
+@mixin vertical-center {
+  text-align: center;
+
+  &:before {
+    content: "";
+    height: 100%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+  }
+
+  & > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
 
 // https://dvcs.w3.org/hg/FXTF/raw-file/tip/filters/index.html
 //

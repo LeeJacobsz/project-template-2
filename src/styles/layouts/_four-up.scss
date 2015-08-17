@@ -1,0 +1,10 @@
+[data-layout="four-up"] {
+
+  @extend [data-layout="two-up"];
+
+  @include respond-to(tablet) {
+    .cell {
+      width: 25%;
+    }
+	}
+}
