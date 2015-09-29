@@ -1,0 +1,3 @@
+# Don't allow web crawlers to index staging site
+User-agent: *
+Disallow: /

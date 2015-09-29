@@ -1,18 +1,39 @@
+#
 # force www
+#
 # RewriteCond %{HTTP_HOST} ^example.co.nz [NC]
 # RewriteRule ^(.*)$ http://www.example.co.nz/$1 [L,R=301,NC]
+
+#
+# Serve a different robots.txt file on stage environment
+#
+RewriteCond %{HTTP_HOST} ^stage\.example\.co\.nz$
+RewriteRule ^robots.txt robots-stage.txt
+
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 
+	#
+	# Remove index.php from url without messing with admin/post requests
+	#
+
+	RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+	RewriteCond %{REQUEST_URI} !^/index\.php/admin\b [NC] # Don't mess with admin requests
+	RewriteRule (.*?)index\.php/*(.*) /$1$2 [R=301,NE,L]
+
+	#
 	# Craft URL Rewriting here
+	#
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-l
-	RewriteRule ^ index.php%{REQUEST_URI} [L,NC]
+	RewriteRule ^index.php%{REQUEST_URI} [L,NC]
 
+	#
 	# force no trailing slash
+	#
 	RewriteCond %{THE_REQUEST} \s(.+?)/+[?\s]
 	RewriteRule ^(.+?)/$ /$1 [R=301,L]
 </IfModule>
